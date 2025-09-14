@@ -24,5 +24,5 @@ Route::middleware(['auth:sanctum', 'user.type:admin'])->group(function () {
     Route::apiResource('/users', UserController::class);
 
     Route::get('/users/export/csv', [UserController::class, 'exportCsv']);
-});
     Route::get('/users/export/pdf', [UserController::class, 'exportpdf']);
+});
