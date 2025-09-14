@@ -4,14 +4,14 @@ namespace App\Http\Services;
 
 use App\Http\Repositories\UserRepository;
 use App\Jobs\ExportUserCsvJob;
+use App\Jobs\ExportUserPdfJob;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 
 class UserService
 {
-    public function __construct(private readonly UserRepository $userRepository)
-    {}
+    public function __construct(private readonly UserRepository $userRepository) {}
 
     public function index(array $data)
     {
@@ -38,15 +38,7 @@ class UserService
         $this->userRepository->destroy($id);
     }
 
-    public function exportCsv(array $data): array
-    {
-        dispatch(new ExportUserCsvJob($this->userRepository->index($data)));
 
-        return [
-            'status' => 200,
-            'message' => 'Exportando dados para o csv'
-        ];
-    }
 
     public function login(array $data)
     {
@@ -63,4 +55,25 @@ class UserService
             'token' => $user->createToken('auth_token')->plainTextToken
         ];
     }
+
+    public function exportCsv(array $data): array
+    {
+        dispatch(new ExportUserCsvJob($this->userRepository->index($data)));
+
+        return [
+            'status' => 200,
+            'message' => 'Exportando dados para o csv'
+        ];
+    }
+
+    public function exportPdf(array $data): array
+    {
+        dispatch(new ExportUserPdfJob($this->userRepository->index($data)));
+
+        return [
+            'status' => 200,
+            'message' => 'Exportando dados para o csv'
+        ];
+    }
 }
+
