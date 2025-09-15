@@ -85,6 +85,7 @@ docker exec -it laravel_app composer install
 docker exec -it laravel_app php artisan key:generate
 docker exec -it laravel_app composer require predis/predis
 docker exec -it laravel_app composer require league/flysystem-aws-s3-v3 "^3.0"
+docker exit -it laravel_app composer require dompdf/dompdf
 docker exec -it laravel_app php artisan install:broadcasting
 docker exec -it laravel_app php artisan migrate
 docker exec -it laravel_app php artisan db:seed --class=UsersTableSeeder
